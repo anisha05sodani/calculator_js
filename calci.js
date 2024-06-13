@@ -1,34 +1,30 @@
-(function () {
-    let screen = document.querySelector('.screen');
-    let buttons = document.querySelectorAll('.btn');
-    let clear = document.querySelector('.btn-clear');
-    let equal = document.querySelector('equalto');
-
-    buttons.forEach(function (button) {
-        button.addEventListener('click', function (e) {
-            let value = e.target.dataset.num;
-
-            screen.value += value;
-            console.log(screen.value)
-        })
-        console.log(screen.value);
-    });
-
-    if (screen.value === "") {
-        screen.value = "Please enter";
+function updateDisplay(value) {
+    const display = document.getElementById('display');
+    if (display.value === '0' && value !== '.') {
+        display.value = value;
+    } else {
+        display.value += value;
     }
-    else {
-        equal.addEventListener('click', function (e) {
-            let answer = eval(screen.value);
-            screen.value = answer;
+}
 
-
-        })
+function clearLastDigit() {
+    const display = document.getElementById('display');
+    if (display.value.length > 1) {
+        display.value = display.value.slice(0, -1);
+    } else {
+        display.value = '0';
     }
+}
 
+function clearDisplay() {
+    document.getElementById('display').value = '0';
+}
 
-    clear.addEventListener('click', function (e) {
-        screen.value = "";
-    })
-
-})()
+function calculateResult() {
+    const display = document.getElementById('display');
+    try {
+        display.value = eval(display.value);
+    } catch (e) {
+        display.value = 'Error';
+    }
+}
